@@ -1,19 +1,58 @@
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {StyleSheet, View, TouchableOpacity, Alert} from 'react-native';
 import DocumentPicker, {
   DocumentPickerResponse,
 } from 'react-native-document-picker';
+import {API_URL} from '@env';
 
 export default function FilesButton() {
-  async function pickFile() {
+  async function pick() {
     try {
       const result = await DocumentPicker.pick({
         type: [DocumentPicker.types.video],
         allowMultiSelection: false,
       });
-      const file = result[0] as DocumentPickerResponse;
-      console.log('\n','File uri: ', file.uri,'\n','File type: ', file.type,'\n','File name: ', file.name,'\n','File size: ', file.size);
 
+      const file = result[0] as DocumentPickerResponse;
+      console.log(
+        '\n',
+        'File uri: ',
+        file.uri,
+        '\n',
+        'File type: ',
+        file.type,
+        '\n',
+        'File name: ',
+        file.name,
+        '\n',
+        'File size: ',
+        file.size,
+      );
+
+      const formData = new FormData();
+
+      formData.append('video', {
+        uri: file.uri,
+        type: file.type,
+        name: file.name,
+      });
+      const url = API_URL;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        body: formData,
+      });
+
+      const resultJson = await response.json();
+      console.log('Response from server:', resultJson);
+
+      Alert.alert(
+        'Upload complete',
+        'The video has been uploaded successfully.',
+      );
     } catch (error) {
       if (DocumentPicker.isCancel(error)) {
         console.log('User cancelled the upload');
@@ -25,10 +64,7 @@ export default function FilesButton() {
 
   return (
     <View style={[styles.circle]}>
-      <TouchableOpacity
-        style={[styles.button, styles.circle]}
-        onPress={pickFile}
-      />
+      <TouchableOpacity style={[styles.button, styles.circle]} onPress={pick} />
     </View>
   );
 }
