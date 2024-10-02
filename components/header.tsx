@@ -1,21 +1,16 @@
 import {View, StyleSheet} from 'react-native';
 import React from 'react';
-import FilesButton from './filesButton';
 
 export default function Footer() {
   return (
-    <View style={styles.footer}>
-      <FilesButton />
-    </View>
+    <View style={styles.header}/>
   );
 }
 
 const styles = StyleSheet.create({
-  footer: {
+  header: {
     backgroundColor: '#79b3ef',
     height: '9%',
     // padding: 10,
-    // borderTopWidth: 3,
-    // borderTopColor: '#353434',
   },
 });

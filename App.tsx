@@ -1,14 +1,14 @@
-import {Text, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet} from 'react-native';
 import React from 'react';
 
 import Footer from './components/footer';
+import Header from './components/header';
 
 const App = () => {
   return (
     <SafeAreaView style={styles.superContainer}>
-      <ScrollView style={styles.canvas}>
-        <Text>hfsjfasvj</Text>
-      </ScrollView>
+      <Header/>
+      <ScrollView style={styles.canvas}/>
       <Footer />
     </SafeAreaView>
   );
@@ -16,8 +16,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   canvas: {
-    borderBottomColor: '#074867',
-    borderBottomWidth: 1.5,
+    backgroundColor: '#ff3636'
   },
   superContainer: {
     flex: 1,
