@@ -11,6 +11,5 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#79b3ef',
     height: '9%',
-    // padding: 10,
   },
 });

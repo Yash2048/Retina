@@ -14,8 +14,5 @@ const styles = StyleSheet.create({
   footer: {
     backgroundColor: '#79b3ef',
     height: '9%',
-    // padding: 10,
-    // borderTopWidth: 3,
-    // borderTopColor: '#353434',
   },
 });

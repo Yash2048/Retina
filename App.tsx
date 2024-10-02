@@ -7,8 +7,8 @@ import Header from './components/header';
 const App = () => {
   return (
     <SafeAreaView style={styles.superContainer}>
-      <Header/>
-      <ScrollView style={styles.canvas}/>
+      <Header />
+      <ScrollView style={styles.canvas} />
       <Footer />
     </SafeAreaView>
   );
@@ -16,12 +16,10 @@ const App = () => {
 
 const styles = StyleSheet.create({
   canvas: {
-    backgroundColor: '#ff3636'
+    backgroundColor: '#ff3636',
   },
   superContainer: {
     flex: 1,
-    backgroundColor: '#80a4b5',
-
   },
 });
 

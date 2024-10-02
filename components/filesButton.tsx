@@ -1,9 +1,11 @@
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity, Alert} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Alert, Image} from 'react-native';
 import DocumentPicker, {
   DocumentPickerResponse,
 } from 'react-native-document-picker';
 import {API_URL} from '@env';
+
+const FolderIcon = require('../assests/folder_icon.png');
 
 export default function FilesButton() {
   async function pick() {
@@ -64,7 +66,9 @@ export default function FilesButton() {
 
   return (
     <View style={[styles.circle]}>
-      <TouchableOpacity style={[styles.button, styles.circle]} onPress={pick} />
+      <TouchableOpacity style={[styles.button, styles.circle]} onPress={pick}>
+        <Image source={FolderIcon} style={styles.image} />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -79,6 +83,10 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
+  },
+  image: {
+    width: 56,
+    height: 56,
   },
 });
 
