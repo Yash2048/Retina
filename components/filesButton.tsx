@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, TouchableOpacity, Alert, Image} from 'react-native';
 import DocumentPicker, {
-  DocumentPickerResponse,
 } from 'react-native-document-picker';
 import {API_URL} from '@env';
 
@@ -10,12 +9,9 @@ const FolderIcon = require('../assests/folder_icon.png');
 export default function FilesButton() {
   async function pick() {
     try {
-      const result = await DocumentPicker.pick({
+      const file = await DocumentPicker.pickSingle({
         type: [DocumentPicker.types.video],
-        allowMultiSelection: false,
       });
-
-      const file = result[0] as DocumentPickerResponse;
       console.log(
         '\n',
         'File uri: ',
@@ -33,11 +29,7 @@ export default function FilesButton() {
 
       const formData = new FormData();
 
-      formData.append('video', {
-        uri: file.uri,
-        type: file.type,
-        name: file.name,
-      });
+      formData.append('video', file);
       const url = API_URL;
 
       const response = await fetch(url, {
