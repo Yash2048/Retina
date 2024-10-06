@@ -1,12 +1,13 @@
 import React from 'react';
 import {StyleSheet, View, TouchableOpacity, Alert, Image} from 'react-native';
-import DocumentPicker, {
-} from 'react-native-document-picker';
+import DocumentPicker from 'react-native-document-picker';
 import {API_URL} from '@env';
 
 const FolderIcon = require('../assests/folder_icon.png');
 
-export default function FilesButton() {
+
+
+export default function FilesButton({setFileName}:{setFileName:(name:string|null)=>void}) {
   async function pick() {
     try {
       const file = await DocumentPicker.pickSingle({
@@ -26,6 +27,8 @@ export default function FilesButton() {
         'File size: ',
         file.size,
       );
+
+      setFileName(file.name);
 
       const formData = new FormData();
 
