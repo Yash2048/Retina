@@ -1,13 +1,24 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, View, TouchableOpacity, Alert, Image} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import {API_URL} from '@env';
 
-const FolderIcon = require('../assests/folder_icon.png');
+import {selectContext} from '../context/selectedContext';
+
+
 
 
 
 export default function FilesButton({setFileName}:{setFileName:(name:string|null)=>void}) {
+  const context = useContext(selectContext);
+  console.log(context);
+
+  if (!context) {
+    throw new Error('SelectComponent must be used within a SelectProvider');
+  }
+
+  const { isSelected, selectActive } = context;
+  const FolderIcon = (isSelected ? require('../assests/213212.png') : require('../assests/folder_icon.png'));
   async function pick() {
     try {
       const file = await DocumentPicker.pickSingle({
@@ -29,7 +40,7 @@ export default function FilesButton({setFileName}:{setFileName:(name:string|null
       );
 
       setFileName(file.name);
-
+      selectActive();
       const formData = new FormData();
 
       formData.append('video', file);
@@ -42,7 +53,6 @@ export default function FilesButton({setFileName}:{setFileName:(name:string|null
         },
         body: formData,
       });
-
       const resultJson = await response.json();
       console.log('Response from server:', resultJson);
 
