@@ -1,25 +1,23 @@
 import React, {useContext} from 'react';
 import {StyleSheet, View, TouchableOpacity, Alert, Image} from 'react-native';
-import DocumentPicker from 'react-native-document-picker';
+import DocumentPicker, {DocumentPickerResponse} from 'react-native-document-picker';
 import {API_URL} from '@env';
 
 import {selectContext} from '../context/selectedContext';
 
-
-
-
-
-export default function FilesButton({setFileName}:{setFileName:(name:string|null)=>void}) {
+export default function FilesButton({setFileName}: {setFileName: (name: string | null) => void}) {
   const context = useContext(selectContext);
-  console.log(context);
+  //console.log(context);
 
   if (!context) {
     throw new Error('SelectComponent must be used within a SelectProvider');
   }
 
-  const { isSelected, selectActive } = context;
-  const FolderIcon = (isSelected ? require('../assests/213212.png') : require('../assests/folder_icon.png'));
-  async function pick() {
+  const {isSelected, selectActive} = context;
+  const FolderIcon = isSelected ? require('../assests/213212.png') : require('../assests/folder_icon.png');
+
+  var video: DocumentPickerResponse | null = null;
+  async function selectVideo() {
     try {
       const file = await DocumentPicker.pickSingle({
         type: [DocumentPicker.types.video],
@@ -41,9 +39,20 @@ export default function FilesButton({setFileName}:{setFileName:(name:string|null
 
       setFileName(file.name);
       selectActive();
+    } catch (error) {
+      if (DocumentPicker.isCancel(error)) {
+        console.log('User cancelled the upload');
+      } else {
+        console.log(error);
+      }
+    }
+  }
+
+  async function uploadVideo() {
+    try {
       const formData = new FormData();
 
-      formData.append('video', file);
+      formData.append('video', video);
       const url = API_URL;
 
       const response = await fetch(url, {
@@ -56,22 +65,19 @@ export default function FilesButton({setFileName}:{setFileName:(name:string|null
       const resultJson = await response.json();
       console.log('Response from server:', resultJson);
 
-      Alert.alert(
-        'Upload complete',
-        'The video has been uploaded successfully.',
-      );
+      Alert.alert('Upload complete', 'The video has been uploaded successfully.');
+      video = null;
+      return resultJson;
     } catch (error) {
-      if (DocumentPicker.isCancel(error)) {
-        console.log('User cancelled the upload');
-      } else {
-        console.log(error);
-      }
+      console.log(error);
+      selectActive();
+      setFileName('');
     }
   }
 
   return (
     <View style={[styles.circle]}>
-      <TouchableOpacity style={[styles.button, styles.circle]} onPress={pick}>
+      <TouchableOpacity style={[styles.button, styles.circle]} onPress={isSelected ? uploadVideo : selectVideo}>
         <Image source={FolderIcon} style={styles.image} />
       </TouchableOpacity>
     </View>
