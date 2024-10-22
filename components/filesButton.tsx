@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, View, TouchableOpacity, Alert, Image} from 'react-native';
 import DocumentPicker, {DocumentPickerResponse} from 'react-native-document-picker';
 import {API_URL} from '@env';
@@ -7,6 +7,7 @@ import {selectContext} from '../context/selectedContext';
 
 export default function FilesButton({setFileName}: {setFileName: (name: string | null) => void}) {
   const context = useContext(selectContext);
+  const [video, setVideo] = useState<DocumentPickerResponse | null>(null);
   //console.log(context);
 
   if (!context) {
@@ -16,12 +17,12 @@ export default function FilesButton({setFileName}: {setFileName: (name: string |
   const {isSelected, selectActive} = context;
   const FolderIcon = isSelected ? require('../assests/213212.png') : require('../assests/folder_icon.png');
 
-  var video: DocumentPickerResponse | null = null;
   async function selectVideo() {
     try {
       const file = await DocumentPicker.pickSingle({
         type: [DocumentPicker.types.video],
       });
+      setVideo(file);
       console.log(
         '\n',
         'File uri: ',
@@ -52,7 +53,13 @@ export default function FilesButton({setFileName}: {setFileName: (name: string |
     try {
       const formData = new FormData();
 
-      formData.append('video', video);
+      if (video) {
+        formData.append('video', {
+          uri: video.uri,
+          name: video.name,
+          type: video.type,
+        });
+      }
       const url = API_URL;
 
       const response = await fetch(url, {
@@ -66,8 +73,8 @@ export default function FilesButton({setFileName}: {setFileName: (name: string |
       console.log('Response from server:', resultJson);
 
       Alert.alert('Upload complete', 'The video has been uploaded successfully.');
-      video = null;
-      return resultJson;
+      setVideo(null);
+      return;
     } catch (error) {
       console.log(error);
       selectActive();
