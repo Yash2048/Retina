@@ -15,7 +15,7 @@ export default function FilesButton({setFileName}: {setFileName: (name: string |
   }
 
   const {isSelected, selectActive} = context;
-  const FolderIcon = isSelected ? require('../assests/213212.png') : require('../assests/folder_icon.png');
+  const FolderIcon = isSelected ? require('../assests/upload_icon.png') : require('../assests/folder_icon.png');
 
   async function selectVideo() {
     try {
