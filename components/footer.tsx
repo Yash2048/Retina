@@ -9,7 +9,7 @@ export default function Footer() {
 
   return (
     <View style={styles.footer}>
-      <TextField fileName={fileName} />
+      <TextField fileName={fileName} setFileName={setFileName} />
       <FilesButton setFileName={setFileName}/>
     </View>
   );

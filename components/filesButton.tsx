@@ -5,7 +5,11 @@ import {API_URL} from '@env';
 
 import {selectContext} from '../context/selectedContext';
 
-export default function FilesButton({setFileName}: {setFileName: (name: string | null) => void}) {
+interface FilesButtonProps {
+  setFileName: (name: string | null) => void;
+}
+
+export default function FilesButton({setFileName}: FilesButtonProps) {
   const context = useContext(selectContext);
   const [video, setVideo] = useState<DocumentPickerResponse | null>(null);
   //console.log(context);

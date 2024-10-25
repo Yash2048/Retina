@@ -5,16 +5,26 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {selectContext} from '../context/selectedContext';
 const CrossIcon = require('../assests/cross_icon.png');
 
+interface TextFieldProps {
+  fileName: string | null;
+  setFileName: (name: string | null) => void;
+}
 
-export default function TextField({fileName}:{fileName:string|null}) {
+export default function TextField({fileName, setFileName}: TextFieldProps) {
   const context = useContext(selectContext);
 
+
   const {isSelected, selectActive} = context;
+
+  async function fun() {
+    setFileName('');
+    selectActive();
+  }
 
   return (
     <View style={styles.field}>
       <Text style={styles.text}>{fileName}</Text>
-     { isSelected && <TouchableOpacity style={styles.button}>
+     { isSelected && <TouchableOpacity style={styles.button} onPress={fun}>
         <Image source={CrossIcon} style={styles.image} />
       </TouchableOpacity>}
     </View>
