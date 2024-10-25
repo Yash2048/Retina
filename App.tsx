@@ -1,16 +1,20 @@
 import {SafeAreaView, ScrollView, StyleSheet} from 'react-native';
 import React from 'react';
 
+import {SelectProvider} from './context/selectedContext';
+
 import Footer from './components/footer';
 import Header from './components/header';
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.superContainer}>
-      <Header />
-      <ScrollView style={styles.canvas} />
-      <Footer />
-    </SafeAreaView>
+    <SelectProvider>
+      <SafeAreaView style={styles.superContainer}>
+        <Header />
+        <ScrollView style={styles.canvas} />
+        <Footer />
+      </SafeAreaView>
+    </SelectProvider>
   );
 };
 
