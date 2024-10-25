@@ -7,11 +7,12 @@ import {selectContext} from '../context/selectedContext';
 
 interface FilesButtonProps {
   setFileName: (name: string | null) => void;
+  setVideo: (video: DocumentPickerResponse | null) => void;
+  video: DocumentPickerResponse | null;
 }
 
-export default function FilesButton({setFileName}: FilesButtonProps) {
+export default function FilesButton({setFileName, setVideo, video}: FilesButtonProps) {
   const context = useContext(selectContext);
-  const [video, setVideo] = useState<DocumentPickerResponse | null>(null);
   //console.log(context);
 
   if (!context) {
@@ -26,7 +27,6 @@ export default function FilesButton({setFileName}: FilesButtonProps) {
       const file = await DocumentPicker.pickSingle({
         type: [DocumentPicker.types.video],
       });
-      setVideo(file);
       console.log(
         '\n',
         'File uri: ',
@@ -41,7 +41,7 @@ export default function FilesButton({setFileName}: FilesButtonProps) {
         'File size: ',
         file.size,
       );
-
+      setVideo(file);
       setFileName(file.name);
       selectActive();
     } catch (error) {

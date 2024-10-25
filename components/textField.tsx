@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {DocumentPickerResponse} from 'react-native-document-picker';
+
 
 
 import {selectContext} from '../context/selectedContext';
@@ -8,9 +10,10 @@ const CrossIcon = require('../assests/cross_icon.png');
 interface TextFieldProps {
   fileName: string | null;
   setFileName: (name: string | null) => void;
+  setVideo: (video: DocumentPickerResponse | null) => void;
 }
 
-export default function TextField({fileName, setFileName}: TextFieldProps) {
+export default function TextField({fileName, setFileName, setVideo}: TextFieldProps) {
   const context = useContext(selectContext);
 
 
@@ -19,6 +22,7 @@ export default function TextField({fileName, setFileName}: TextFieldProps) {
   async function fun() {
     setFileName('');
     selectActive();
+    setVideo(null);
   }
 
   return (
