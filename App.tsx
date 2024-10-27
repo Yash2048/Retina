@@ -20,7 +20,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   canvas: {
-    backgroundColor: '#ff3636',
+    backgroundColor: '#caf0f8',
   },
   superContainer: {
     flex: 1,

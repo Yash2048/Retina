@@ -9,7 +9,7 @@ export default function Footer() {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#79b3ef',
+    backgroundColor: '#023047',
     height: '9%',
   },
 });

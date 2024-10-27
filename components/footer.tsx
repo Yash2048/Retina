@@ -20,7 +20,7 @@ export default function Footer() {
 const styles = StyleSheet.create({
   footer: {
     flexDirection:'row',
-    backgroundColor: '#79b3ef',
+    backgroundColor: '#023047',
     height: '9%',
   },
 });
