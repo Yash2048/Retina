@@ -1,0 +1,29 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assests/fonts/OpenSans-Bold.ttf",
+      "sha1": "953814da1b753763dfa5a7ecc18bdbb14890e16b"
+    },
+    {
+      "path": "assests/fonts/OpenSans-ExtraBold.ttf",
+      "sha1": "3a02724d19fdb3c67b174be7a789757a194ee2ff"
+    },
+    {
+      "path": "assests/fonts/OpenSans-Light.ttf",
+      "sha1": "9292ee344b331c5959c7b130d1a2df5543dfa58a"
+    },
+    {
+      "path": "assests/fonts/OpenSans-Medium.ttf",
+      "sha1": "a44dcac0388d78404b84578f3e593c740399ebb5"
+    },
+    {
+      "path": "assests/fonts/OpenSans-Regular.ttf",
+      "sha1": "76ea5d4c70539ad9b0e7faf7e4fbe3bae8a961c7"
+    },
+    {
+      "path": "assests/fonts/OpenSans-SemiBold.ttf",
+      "sha1": "9b1adfbc773bb8bd1e6c4ca85c34441a43c2bc54"
+    }
+  ]
+}
