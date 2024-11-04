@@ -1,27 +1,23 @@
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {} from 'react-native';
 import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {SelectProvider} from './context/selectedContext';
-
 import Home from './screens/home';
+
+const stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <SelectProvider>
-      <SafeAreaView style={styles.superContainer}>
-      <Home/>
-      </SafeAreaView>
+      <NavigationContainer>
+        <stack.Navigator screenOptions={{headerShown: false}}>
+          <stack.Screen name="Home" component={Home} />
+        </stack.Navigator>
+      </NavigationContainer>
     </SelectProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  canvas: {
-    backgroundColor: '#caf0f8',
-  },
-  superContainer: {
-    flex: 1,
-  },
-});
 
 export default App;
