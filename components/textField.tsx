@@ -1,8 +1,6 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {DocumentPickerResponse} from 'react-native-document-picker';
-
-
 
 import {selectContext} from '../context/selectedContext';
 const CrossIcon = require('../assests/cross_icon.png');
@@ -16,7 +14,6 @@ interface TextFieldProps {
 export default function TextField({fileName, setFileName, setVideo}: TextFieldProps) {
   const context = useContext(selectContext);
 
-
   const {isSelected, selectActive} = context;
 
   async function fun() {
@@ -28,9 +25,11 @@ export default function TextField({fileName, setFileName, setVideo}: TextFieldPr
   return (
     <View style={styles.field}>
       <Text style={styles.text}>{fileName}</Text>
-     { isSelected && <TouchableOpacity style={styles.button} onPress={fun}>
-        <Image source={CrossIcon} style={styles.image} />
-      </TouchableOpacity>}
+      {isSelected && (
+        <TouchableOpacity style={styles.button} onPress={fun}>
+          <Image source={CrossIcon} style={styles.image} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
@@ -56,7 +55,6 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     textAlign: 'left',
     marginVertical: 'auto',
-
   },
   button: {
     marginVertical: 'auto',

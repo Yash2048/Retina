@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, View, TouchableOpacity, Alert, Image} from 'react-native';
 import DocumentPicker, {DocumentPickerResponse} from 'react-native-document-picker';
 import {API_URL} from '@env';
@@ -10,7 +10,6 @@ interface FilesButtonProps {
   setVideo: (video: DocumentPickerResponse | null) => void;
   video: DocumentPickerResponse | null;
 }
-
 export default function FilesButton({setFileName, setVideo, video}: FilesButtonProps) {
   const context = useContext(selectContext);
   //console.log(context);
@@ -46,7 +45,7 @@ export default function FilesButton({setFileName, setVideo, video}: FilesButtonP
       selectActive();
     } catch (error) {
       if (DocumentPicker.isCancel(error)) {
-        console.log('User cancelled the upload');
+        console.log('User closed the file picker');
       } else {
         console.log(error);
       }
