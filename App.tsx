@@ -1,23 +1,38 @@
-import {} from 'react-native';
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {SelectProvider} from './context/selectedContext';
+import {AuthProvider, useAuth} from './context/authContext';
+
 import Home from './screens/home';
+import Login from './screens/login';
 
-const stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
-const App = () => {
+const AppProviders = ({children}: {children: ReactNode}) => (
+  <AuthProvider>
+    <SelectProvider>{children}</SelectProvider>
+  </AuthProvider>
+);
+
+const AppNavigation = () => {
+  const {isLoggedIn} = useAuth();
+
   return (
-    <SelectProvider>
-      <NavigationContainer>
-        <stack.Navigator screenOptions={{headerShown: false}}>
-          <stack.Screen name="Home" component={Home} />
-        </stack.Navigator>
-      </NavigationContainer>
-    </SelectProvider>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'Login'} screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
+const App = () => {
+  return (
+    <AppProviders>
+      <AppNavigation />
+    </AppProviders>
+  );
+};
 export default App;
