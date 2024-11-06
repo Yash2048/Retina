@@ -1,4 +1,4 @@
-import React, {createContext, ReactNode, useState} from 'react';
+import React, {createContext, ReactNode, useState, useContext} from 'react';
 
 // Define the shape of the context value
 interface SelectContextProps {
@@ -19,4 +19,12 @@ const SelectProvider = ({children}: {children: ReactNode}) => {
   return <selectContext.Provider value={{isSelected, selectActive}}>{children}</selectContext.Provider>;
 };
 
-export {SelectProvider, selectContext};
+const useSelect = () => {
+  const context = useContext(selectContext);
+  if (!context) {
+    throw new Error('useSelect must be used within a SelectProvider');
+  }
+  return context;
+};
+
+export {SelectProvider, useSelect};

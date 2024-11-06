@@ -1,8 +1,8 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {DocumentPickerResponse} from 'react-native-document-picker';
 
-import {selectContext} from '../context/selectedContext';
+import {useSelect} from '../context/selectedContext';
 const CrossIcon = require('../assests/cross_icon.png');
 
 interface TextFieldProps {
@@ -12,9 +12,7 @@ interface TextFieldProps {
 }
 
 export default function TextField({fileName, setFileName, setVideo}: TextFieldProps) {
-  const context = useContext(selectContext);
-
-  const {isSelected, selectActive} = context;
+  const {isSelected, selectActive} = useSelect();
 
   async function fun() {
     setFileName('');
