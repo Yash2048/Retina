@@ -1,9 +1,9 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {StyleSheet, View, TouchableOpacity, Alert, Image} from 'react-native';
 import DocumentPicker, {DocumentPickerResponse} from 'react-native-document-picker';
 import {API_URL} from '@env';
 
-import {selectContext} from '../context/selectedContext';
+import {useSelect} from '../context/selectedContext';
 
 interface FilesButtonProps {
   setFileName: (name: string | null) => void;
@@ -11,14 +11,7 @@ interface FilesButtonProps {
   video: DocumentPickerResponse | null;
 }
 export default function FilesButton({setFileName, setVideo, video}: FilesButtonProps) {
-  const context = useContext(selectContext);
-  //console.log(context);
-
-  if (!context) {
-    throw new Error('SelectComponent must be used within a SelectProvider');
-  }
-
-  const {isSelected, selectActive} = context;
+  const {isSelected, selectActive} = useSelect();
   const FolderIcon = isSelected ? require('../assests/upload_icon.png') : require('../assests/folder_icon.png');
 
   async function selectVideo() {
