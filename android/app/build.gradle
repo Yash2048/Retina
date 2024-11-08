@@ -77,9 +77,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.reactapp"
+    namespace "com.retina"
     defaultConfig {
-        applicationId "com.reactapp"
+        applicationId "com.retina"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -107,6 +107,19 @@ android {
     }
 }
 
+//this is supposed to be for dev builds and prod builds
+/*     flavorDimensions "environment"
+    productFlavors {
+        dev {
+            dimension "environment"
+            applicationId "com.reactapp"
+        }
+        prod {
+            dimension "environment"
+            applicationId "com.retina"
+        }
+    }
+ */
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")

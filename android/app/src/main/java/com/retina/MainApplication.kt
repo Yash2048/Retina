@@ -1,4 +1,4 @@
-package com.reactapp
+package com.retina
 
 import android.app.Application
 import com.facebook.react.PackageList
