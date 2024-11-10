@@ -3,13 +3,14 @@ import React from 'react';
 
 import RectangularButton from '../components/rectangularButton';
 import Header from '../components/header';
+import {textInput} from '../stylesheets/defaultStyles';
 export default function Login() {
   return (
     <SafeAreaView style={styles.superContainer}>
       <Header />
       <ScrollView style={styles.canvas}>
-        <TextInput></TextInput>
-        <RectangularButton style={styles.button} text={'Login'} />
+        <TextInput style={textInput} />
+        <RectangularButton style={styles.button} text={'SignUp'} />
       </ScrollView>
     </SafeAreaView>
   );
