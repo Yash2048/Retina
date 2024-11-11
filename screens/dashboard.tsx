@@ -1,16 +1,27 @@
-import {ScrollView, SafeAreaView, StyleSheet, TextInput} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import React from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 import Header from '../components/header';
+import RectangularButton from '../components/rectangularButton';
+
+type RootStackParamList = {
+  SignUp: undefined;
+  Login: undefined;
+};
+
 export default function Dashboard() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   return (
-    <SafeAreaView style={styles.superContainer}>
+    <>
       <Header />
-      <ScrollView style={styles.canvas}>
-        <TextInput style={styles.text} />
-        <TextInput style={styles.text} />
+      <ScrollView style={styles.canvas} contentContainerStyle={styles.contentContainerStyle}>
+        <RectangularButton text={'Login'} onPress={() => navigation.navigate('Login')} />
+        <RectangularButton text={'SignUp'} onPress={() => navigation.navigate('SignUp')} />
       </ScrollView>
-    </SafeAreaView>
+    </>
   );
 }
 
@@ -25,5 +36,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#aaaaaa',
     backgroundColor: '#rgb(59, 98, 102)',
+  },
+  contentContainerStyle: {
+    flexGrow: 1,
+    justifyContent: 'center',
   },
 });
