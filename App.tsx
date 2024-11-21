@@ -18,21 +18,21 @@ const AppNavigation = () => {
   const {isLoggedIn} = useAuth();
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'Dashboard'} screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Dashboard" component={Dashboard} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Home" component={Home} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'Dashboard'} screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="Home" component={Home} />
+    </Stack.Navigator>
   );
 };
 const App = () => {
   return (
-    <AppProviders>
-      <AppNavigation />
-    </AppProviders>
+    <NavigationContainer>
+      <AppProviders>
+        <AppNavigation />
+      </AppProviders>
+    </NavigationContainer>
   );
 };
 export default App;

@@ -1,29 +1,35 @@
 import React from 'react';
 import {ScrollView, StyleSheet, TextInput} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
+import {useAuth} from '../context/authContext';
 
 import Header from '../components/header';
 import RectangularButton from '../components/rectangularButton';
 
+interface SignUpFormData {
+  email: string;
+  password: string;
+}
 export default function SignUp() {
-  const {control, handleSubmit} = useForm();
+  const {control, handleSubmit, reset} = useForm<SignUpFormData>();
+  const {signup} = useAuth();
 
-  const onSubmit = data => {
-    console.log('Form Data:', data); // Handle form data here
+  const onSubmit = (data: SignUpFormData) => {
+    signup(data, reset);
   };
-
   return (
     <>
       <Header />
       <ScrollView style={styles.canvas}>
         <Controller
-          name="username"
+          name="email"
           control={control}
-          rules={{required: 'Username is required'}}
+          rules={{required: 'Email is required'}}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               style={styles.input}
-              placeholder="Username"
+              placeholderTextColor={'#000000'}
+              placeholder="Email"
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
@@ -33,10 +39,11 @@ export default function SignUp() {
         <Controller
           name="password"
           control={control}
-          rules={{required: 'Password is required'}}
+          rules={{required: 'Password is required', minLength: 6}}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               style={styles.input}
+              placeholderTextColor={'#000000'}
               placeholder="Password"
               secureTextEntry
               onBlur={onBlur}
@@ -64,5 +71,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 4,
     marginBottom: 12,
+    color: 'black',
   },
 });
