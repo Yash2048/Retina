@@ -18,11 +18,15 @@ const AppNavigation = () => {
   const {isLoggedIn} = useAuth();
 
   return (
-    <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'Dashboard'} screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Dashboard" component={Dashboard} />
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      {isLoggedIn ? (
+        <Stack.Screen name="Home" component={Home} />
+      ) : (
+        <Stack.Screen name="Dashboard" component={Dashboard} />
+      )}
+
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="SignUp" component={SignUp} />
-      <Stack.Screen name="Home" component={Home} />
     </Stack.Navigator>
   );
 };
