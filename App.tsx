@@ -1,30 +1,38 @@
-import {SafeAreaView, ScrollView, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {ReactNode} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {SelectProvider} from './context/selectedContext';
+import {AuthProvider, useAuth} from './context/authContext';
 
-import Footer from './components/footer';
-import Header from './components/header';
+import {Home, Login, SignUp, Dashboard} from './screens';
+const Stack = createNativeStackNavigator();
 
-const App = () => {
+const AppProviders = ({children}: {children: ReactNode}) => (
+  <AuthProvider>
+    <SelectProvider>{children}</SelectProvider>
+  </AuthProvider>
+);
+
+const AppNavigation = () => {
+  const {isLoggedIn} = useAuth();
+
   return (
-    <SelectProvider>
-      <SafeAreaView style={styles.superContainer}>
-        <Header />
-        <ScrollView style={styles.canvas} />
-        <Footer />
-      </SafeAreaView>
-    </SelectProvider>
+    <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'Dashboard'} screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="Home" component={Home} />
+    </Stack.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  canvas: {
-    backgroundColor: '#caf0f8',
-  },
-  superContainer: {
-    flex: 1,
-  },
-});
-
+const App = () => {
+  return (
+    <NavigationContainer>
+      <AppProviders>
+        <AppNavigation />
+      </AppProviders>
+    </NavigationContainer>
+  );
+};
 export default App;
