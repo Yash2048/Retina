@@ -1,3 +1,17 @@
+# 👁️Retina
+Retina is an Android app, made with React Native, designed to identify deepfakes in videos. Users can upload a video to the app, which connects to the Retina API. The API processes the video using a deepfake detection model and returns the result, indicating whether the video is authentic or manipulated
+
+# 📱Screenshots
+<div>
+<img src="https://github.com/user-attachments/assets/2718411d-b3b0-47e3-af15-cc519c080b89" height="400">
+<img src="https://github.com/user-attachments/assets/e373d663-2500-4c0c-a768-690043074c47" height="400">
+<img src="https://github.com/user-attachments/assets/0b0a308a-dea9-4db6-ba7c-45021d1e7ad5" height="400">
+<img src="https://github.com/user-attachments/assets/3598122e-0ae7-425a-b29c-ad2a4698381c" height="400">
+</div>
+
+
+
+---
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
