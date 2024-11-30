@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View, TouchableOpacity, Alert, Image} from 'react-native';
 import DocumentPicker, {DocumentPickerResponse} from 'react-native-document-picker';
 import {API_URL} from '@env';
+import axios from 'axios';
 
 import {useSelect} from '../context/selectedContext';
 
@@ -58,21 +59,30 @@ export default function FilesButton({setFileName, setVideo, video}: FilesButtonP
       }
       const url = API_URL;
 
-      const response = await fetch(url, {
-        method: 'POST',
+      const response = await axios.post(url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        body: formData,
+        onUploadProgress: progressEvent => {
+          if (progressEvent.loaded === progressEvent.total) {
+            Alert.alert('Upload complete', 'Wait for the response.');
+          }
+        },
       });
-      const resultJson = await response.json();
+      // const response = await fetch(url, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      //   body: formData,
+      // });
       selectActive();
       setFileName('');
 
-      const result = resultJson.result;
+      const result = response.data.result;
       console.log('Response from server:', result);
 
-      Alert.alert('Upload complete', `This video is ${result === 0 ? 'Fake' : 'Real'}`);
+      Alert.alert('Upload complete', `This video is ${result === 1 ? 'Fake' : 'Real'}`);
       setVideo(null);
       return;
     } catch (error) {
