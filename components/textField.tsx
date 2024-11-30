@@ -48,11 +48,10 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'rgb(0, 0, 0)',
-    borderColor: '#b0b0b0',
-    borderWidth: 1.2,
-    marginLeft: 5,
+    marginLeft: 8,
     textAlign: 'left',
     marginVertical: 'auto',
+    fontSize: 16,
   },
   button: {
     marginVertical: 'auto',
