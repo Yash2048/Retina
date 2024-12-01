@@ -72,7 +72,7 @@ export default function FilesButton({setFileName, setVideo, video}: FilesButtonP
       const result = resultJson.result;
       console.log('Response from server:', result);
 
-      Alert.alert('Upload complete', `This video is ${result === 0 ? 'Fake' : 'Real'}`);
+      Alert.alert('Upload complete', `This video is ${result === 1 ? 'Fake' : 'Real'}`);
       setVideo(null);
       return;
     } catch (error) {
