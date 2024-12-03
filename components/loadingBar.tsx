@@ -16,12 +16,13 @@ const dynamicSytles = (percentage: number) =>
       backgroundColor: '#96afb6',
       height: 12,
       width: '100%',
-      borderRadius: 40,
+      marginHorizontal: 'auto',
+      borderRadius: 2,
     },
     view2: {
       backgroundColor: '#23ae64',
       height: 12,
       width: `${percentage.toString()}%` as `${number}%`,
-      borderRadius: 40,
+      borderRadius: 2,
     },
   });

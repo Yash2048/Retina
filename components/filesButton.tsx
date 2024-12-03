@@ -8,10 +8,13 @@ import {useSelect} from '../context/selectedContext';
 
 interface FilesButtonProps {
   setFileName: (name: string | null) => void;
+  setUploading: (uploading: boolean) => void;
+  setPercentage: (percentage: number) => void;
   setVideo: (video: DocumentPickerResponse | null) => void;
   video: DocumentPickerResponse | null;
 }
-export default function FilesButton({setFileName, setVideo, video}: FilesButtonProps) {
+
+export default function FilesButton({setFileName, setUploading, setPercentage, setVideo, video}: FilesButtonProps) {
   const {isSelected, selectActive} = useSelect();
   const FolderIcon = isSelected ? require('../assests/upload_icon.png') : require('../assests/folder_icon.png');
 
@@ -58,12 +61,14 @@ export default function FilesButton({setFileName, setVideo, video}: FilesButtonP
         });
       }
       const url = API_URL;
-
+      setUploading(true);
       const response = await axios.post(url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
         onUploadProgress: progressEvent => {
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setPercentage(percentCompleted);
           if (progressEvent.loaded === progressEvent.total) {
             Alert.alert('Upload complete', 'Wait for the response.');
           }
@@ -76,6 +81,7 @@ export default function FilesButton({setFileName, setVideo, video}: FilesButtonP
       //   },
       //   body: formData,
       // });
+      setUploading(false);
       selectActive();
       setFileName('');
 
