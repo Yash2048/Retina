@@ -1,8 +1,8 @@
 import {View, StyleSheet, useWindowDimensions} from 'react-native';
 import React, {useState} from 'react';
-import FilesButton from './filesButton';
-import TextField from './textField';
 import {DocumentPickerResponse} from 'react-native-document-picker';
+
+import {TextField, FilesButton} from '../components';
 
 export default function Footer() {
   const {height, width} = useWindowDimensions();
