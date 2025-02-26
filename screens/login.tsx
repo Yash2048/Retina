@@ -3,8 +3,7 @@ import {ScrollView, StyleSheet, TextInput} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {useAuth} from '../context/authContext';
 
-import Header from '../components/header';
-import RectangularButton from '../components/rectangularButton';
+import {Header, RectangularButton} from '../components';
 
 interface SignUpFormData {
   email: string;

@@ -2,15 +2,19 @@ import React from 'react';
 import {StyleSheet, View, TouchableOpacity, Alert, Image} from 'react-native';
 import DocumentPicker, {DocumentPickerResponse} from 'react-native-document-picker';
 import {API_URL} from '@env';
+import axios from 'axios';
 
 import {useSelect} from '../context/selectedContext';
 
 interface FilesButtonProps {
   setFileName: (name: string | null) => void;
+  setUploading: (uploading: boolean) => void;
+  setPercentage: (percentage: number) => void;
   setVideo: (video: DocumentPickerResponse | null) => void;
   video: DocumentPickerResponse | null;
 }
-export default function FilesButton({setFileName, setVideo, video}: FilesButtonProps) {
+
+export default function FilesButton({setFileName, setUploading, setPercentage, setVideo, video}: FilesButtonProps) {
   const {isSelected, selectActive} = useSelect();
   const FolderIcon = isSelected ? require('../assests/upload_icon.png') : require('../assests/folder_icon.png');
 
@@ -57,19 +61,31 @@ export default function FilesButton({setFileName, setVideo, video}: FilesButtonP
         });
       }
       const url = API_URL;
-
-      const response = await fetch(url, {
-        method: 'POST',
+      setUploading(true);
+      const response = await axios.post(url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        body: formData,
+        onUploadProgress: progressEvent => {
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setPercentage(percentCompleted);
+          if (progressEvent.loaded === progressEvent.total) {
+            Alert.alert('Upload complete', 'Wait for the response.');
+          }
+        },
       });
-      const resultJson = await response.json();
+      // const response = await fetch(url, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      //   body: formData,
+      // });
+      setUploading(false);
       selectActive();
       setFileName('');
 
-      const result = resultJson.result;
+      const result = response.data.result;
       console.log('Response from server:', result);
 
       Alert.alert('Upload complete', `This video is ${result === 1 ? 'Fake' : 'Real'}`);

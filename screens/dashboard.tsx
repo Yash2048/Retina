@@ -3,8 +3,7 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-import Header from '../components/header';
-import RectangularButton from '../components/rectangularButton';
+import {Header, RectangularButton} from '../components';
 
 type RootStackParamList = {
   SignUp: undefined;
