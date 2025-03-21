@@ -67,7 +67,8 @@ export default function FilesButton({setFileName, setUploading, setPercentage, s
           'Content-Type': 'multipart/form-data',
         },
         onUploadProgress: progressEvent => {
-          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          const total = progressEvent.total || 1;
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / total);
           setPercentage(percentCompleted);
           if (progressEvent.loaded === progressEvent.total) {
             Alert.alert('Upload complete', 'Wait for the response.');
